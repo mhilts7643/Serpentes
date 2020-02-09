@@ -47,6 +47,19 @@ public class SnakeController : MonoBehaviour
 		get { return currentDirection; }
 	}
 
+	public Color Color
+	{
+		get
+		{
+			return transform.Find("Model").gameObject.GetComponent<Renderer>().material.color;
+		}
+		set
+		{
+			transform.Find("Model").gameObject.GetComponent<Renderer>().material.color = value;
+			segmentPrefab.GetComponent<Renderer>().sharedMaterial.color = value;
+		}
+	}
+
 	#endregion
 
 	#region MonoBehaviour Callbacks

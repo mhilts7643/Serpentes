@@ -15,6 +15,10 @@ public class GameManager : MonoBehaviour
 	[SerializeField]
 	private float camRotationSpeed = 100f;
 
+	[Tooltip("The rotation speed for the camera.")]
+	[SerializeField]
+	private ParticleSystem wind = null;
+
 	[Tooltip("The CanvasGroup component of the UICanvas GameObject.")]
 	[SerializeField]
 	private CanvasGroup canvasGroup = null;
@@ -168,6 +172,11 @@ public class GameManager : MonoBehaviour
 		}
 		else
 		{
+			if (wind.isPaused)
+			{
+				wind.Play();
+			}
+
 			if (!startMenu.activeSelf && !resultsMenu.activeSelf)
 			{
 				CheckInput();
@@ -266,6 +275,11 @@ public class GameManager : MonoBehaviour
 
 	private void RotateCamera()
 	{
+		if (wind.isPlaying)
+		{
+			wind.Pause();
+		}
+
 		float distCovered = (Time.time - rotStartTime) * camRotationSpeed;
 		float journeyLength = Vector3.Distance(rotationStart, rotationDest);
 		float fractionOfJourney = distCovered / journeyLength;

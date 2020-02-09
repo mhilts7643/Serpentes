@@ -109,8 +109,6 @@ public class GameManager : MonoBehaviour
 	private Vector3 rotationStart;
 	private Vector3 rotationDest;
 
-	private Color startColor;
-
 	#region Properties
 
 	public List<Fruit> FruitList
@@ -154,7 +152,7 @@ public class GameManager : MonoBehaviour
 		timer = 0f;
 		highScores = (highScores == null) ? GetHighScores() : highScores;
 		names = (names == null) ? GetNames() : names;
-		startColor = snake.Color;
+		SetColorSelection();
 	}
 
 	// Update is called once per frame
@@ -421,6 +419,41 @@ public class GameManager : MonoBehaviour
 		}
 	}
 
+	private void SetColorSelection()
+	{
+		if (snake.Color == Color.red)
+		{
+			SetColorSelection("RedButton");
+		}
+		else if (snake.Color == Color.white)
+		{
+			SetColorSelection("WhiteButton");
+		}
+		else if (snake.Color == Color.yellow)
+		{
+			SetColorSelection("WhiteButton");
+		}
+		else if (snake.Color == Color.green)
+		{
+			SetColorSelection("WhiteButton");
+		}
+		else if (snake.Color == Color.blue)
+		{
+			SetColorSelection("WhiteButton");
+		}
+		else if (snake.Color == Color.black)
+		{
+			SetColorSelection("WhiteButton");
+		}
+	}
+
+	private void SetColorSelection(string buttonName)
+	{
+		Vector3 pos = colorSelection.transform.Find("SelectedColor").position;
+		pos.x = colorSelection.transform.Find(buttonName).position.x;
+		colorSelection.transform.Find("SelectedColor").position = pos;
+	}
+
 	#endregion
 
 	#region Public Methods
@@ -672,49 +705,38 @@ public class GameManager : MonoBehaviour
 	public void RedClick()
 	{
 		snake.Color = Color.red;
-		Vector3 pos = colorSelection.transform.Find("SelectedColor").position;
-		pos.x = colorSelection.transform.Find("RedButton").position.x;
-		colorSelection.transform.Find("SelectedColor").position = pos;
+		SetColorSelection("RedButton");
 	}
 
 	public void WhiteClick()
 	{
 		snake.Color = Color.white;
-		Vector3 pos = colorSelection.transform.Find("SelectedColor").position;
-		pos.x = colorSelection.transform.Find("WhiteButton").position.x;
-		colorSelection.transform.Find("SelectedColor").position = pos;
+		SetColorSelection("WhiteButton");
 	}
 
 	public void YellowClick()
 	{
 		snake.Color = Color.yellow;
-		Vector3 pos = colorSelection.transform.Find("SelectedColor").position;
-		pos.x = colorSelection.transform.Find("YellowButton").position.x;
-		colorSelection.transform.Find("SelectedColor").position = pos;
+		SetColorSelection("YellowButton");
 	}
 
 	public void GreenClick()
 	{
 		snake.Color = Color.green;
-		Vector3 pos = colorSelection.transform.Find("SelectedColor").position;
-		pos.x = colorSelection.transform.Find("GreenButton").position.x;
-		colorSelection.transform.Find("SelectedColor").position = pos;
+		SetColorSelection("GreenButton");
 	}
 
 	public void BlueClick()
 	{
 		snake.Color = Color.blue;
-		Vector3 pos = colorSelection.transform.Find("SelectedColor").position;
-		pos.x = colorSelection.transform.Find("BlueButton").position.x;
-		colorSelection.transform.Find("SelectedColor").position = pos;
+		SetColorSelection("BlueButton");
 	}
 
-	public void PurpleClick()
+	public void BlackClick()
 	{
-		snake.Color = startColor;
-		Vector3 pos = colorSelection.transform.Find("SelectedColor").position;
-		pos.x = colorSelection.transform.Find("PurpleButton").position.x;
-		colorSelection.transform.Find("SelectedColor").position = pos;
+		snake.Color = Color.black;
+		SetColorSelection("BlackButton");
 	}
+
 	#endregion
 }
